@@ -13,3 +13,5 @@ Values:
 
 
 <img width="536" alt="Screen Shot 2021-11-07 at 19 03 29" src="https://user-images.githubusercontent.com/90485680/140645486-615338d8-ef34-401a-b610-ff6669ca5972.png">
+
+Repo Dataset : https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv
