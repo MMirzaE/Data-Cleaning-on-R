@@ -1,0 +1,43 @@
+---
+title: "Data Cldeaning"
+author: "Maulana Mirza Erizal"
+date: "11/7/2021"
+output: html_document
+---
+
+# Library Packages
+```{r}
+library(tidyverse)
+library(lubridate)
+```
+# Data load & View
+```{r}
+df_hw <- read_csv("https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv")
+df_hw
+```
+```{r}
+df_hw %>% 
+  # jawaban nomor 1, tapi banyak cara salah satunya ini
+  separate(col = customerID,into = c("customerID","uniqueCode")) %>% 
+  select(!uniqueCode) %>% 
+  # jawban 2-5
+  mutate(
+    # rubah customerID jadi numeric soal nomor 1
+    customerID = as.numeric(customerID),
+    # jawaban nomor 2
+    MonthlyCharges = replace(MonthlyCharges,is.nan(MonthlyCharges)==TRUE,NA),
+    TotalCharges=as.numeric(TotalCharges),
+    
+    # jawaban nomor 3
+    MonthlyChargesGroup = MonthlyCharges %/% 50,
+    
+    # jawaban nomor 4
+    LastTransactionDate = ymd(LastTransactionDate),
+    LastTransactionDate = replace(LastTransactionDate,is.na(LastTransactionDate)==TRUE,min(LastTransactionDate,na.rm = TRUE)),
+    # jawaban nomor 5
+    PaymentMethod = replace(PaymentMethod, PaymentMethod ==  "--", NA)
+  ) %>% 
+  # jawaban nomor 6
+  filter(is.na(PaymentMethod)==FALSE)
+```
+
