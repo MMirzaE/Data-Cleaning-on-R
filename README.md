@@ -3,15 +3,27 @@ How to Cleaning Data on R
 
 
 Values:
-1. Mampu merubah data sesuai dengan jenisnya (numeric dll). Could change the data according to the Type of data (numeric, etc)
-2. Mampu membersihkan salah input/beda input (nan, Nan, -) (beda format tanggal). Could cleaning the data cause human errors (wrong data input : nan, Nan, -)
-3. Mengerti penggunaan fungsi mutate, seperate, lubridate untuk membersihkan data. Basicly we know how to use mutate, seperate, lubridate functions for cleaning the data
-4. Merubah format data numeric menjadi ordinal bila data unik numerik sedikit. Change numeric data to ordinal in case when got few Unique datas 
-5. Merubah missing value pada data numeric. Change missing values on numeric data
-6. Membuat kolom variable dummy. bulid dummy variable column
-7. Data transformasi. Transformation data
+- Able to change data according to its type (numeric etc.).
+- Able to clean the wrong inputs / different inputs (nan, Nan, -) (different date formats).
+- Understand the use of mutate, seperate, lubridate functions to clean data.
+- Change the numeric data format to ordinal when the unique numeric data is few. 
+- Change the missing value of numeric data.
+- Transformation data.
 
-
-<img width="536" alt="Screen Shot 2021-11-07 at 19 03 29" src="https://user-images.githubusercontent.com/90485680/140645486-615338d8-ef34-401a-b610-ff6669ca5972.png">
-
+Data Overview
 Repo Dataset : https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv
+
+<img width="1335" alt="data overview" src="https://user-images.githubusercontent.com/90485680/141128196-c60a1829-f782-47c0-8c22-f7122b1a1a5f.png">
+
+Problems exercise:
+1. TotalCharges and MonthlyCharges columns still in character form
+2. PaymentMethod column unfixed
+3. Fixing date format (lubridate)
+4. Fixing the customerID column (split the values)
+5. Change the Churn column values no/yes to integer 1/0
+6. Finishing Cleaned Dataset
+
+
+
+
+
