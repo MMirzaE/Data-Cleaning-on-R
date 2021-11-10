@@ -1,0 +1,109 @@
+---
+title: "Exercise Cleaning Data on R"
+author: "Maulana Mirza E"
+date: "11/10/2021"
+output: html_document
+---
+
+Load Data
+```{r}
+library(tidyverse)
+library(lubridate)
+df <- read_csv("https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv")
+df
+```
+There are several ways, this is one way to solve it.
+Problem 1 - check 'na' in TotalCharge column and changed to 'NA', Fix MonthlyCharges column, Fix TotalCharge to numeric form
+```{r}
+# na check
+df$TotalCharges
+is.na(df$TotalCharges)
+df %>% distinct(TotalCharges)
+```
+```{r}
+# na to NA
+df <- df %>%
+  mutate(TotalCharges = replace(TotalCharges, TotalCharges == "na", NA),
+         TotalCharges = replace(TotalCharges, TotalCharges == "N/A", NA),
+         TotalCharges = as.numeric(TotalCharges))
+is.na(df$TotalCharges)
+
+df %>% glimpse()
+```
+```{r}
+# Fix MonthlyCharges column
+df <- df %>% mutate(MonthlyCharges=replace(MonthlyCharges,is.nan(MonthlyCharges)==TRUE,NA))
+```
+```{r}
+# Fix TotalCharge column to numeric form
+df %>% 
+  mutate(TotalCharges=as.numeric(TotalCharges)) %>% 
+  pull(TotalCharges)
+```
+Problem 2 - Fix PaymentMethod column
+```{r}
+# PaymentMethod Checked
+df %>% distinct(PaymentMethod)
+is.na(df$PaymentMethod)
+```
+```{r}
+# PaymentMethod Fixed - values "--" to NA
+df <- df %>%
+  mutate(PaymentMethod = replace(PaymentMethod, PaymentMethod ==  "--", NA))
+is.na(df$PaymentMethod)
+df$PaymentMethod
+```
+Problem 3 - Fixing date format
+```{r}
+# LastTransactionDate Checked
+df %>% distinct(LastTransactionDate)
+```
+```{r}
+# LastTransactionDate Fixed
+df <- df %>%
+  mutate(LastTransactionDate=ymd(LastTransactionDate)) 
+
+df %>% select(LastTransactionDate)
+```
+Problem 4 - Fixing customerID columns (split the values)
+```{r}
+# customerID Checked
+df %>% distinct(customerID)
+```
+```{r} 
+# Split customerID
+df %>% separate(col = customerID,into = c("customerID","uniqueCode"))
+
+df <- df %>% 
+  separate(col = customerID,into = c("customerID","uniqueCode"))
+```
+Problem 5 -Change the churn column no/yes to integer 1/0
+```{r}
+df %>% 
+  mutate(Churn=if_else(Churn=="yes",1,0)) %>% 
+  select(Churn)
+
+df <- df %>% 
+  mutate(Churn=if_else(Churn=="yes",1,0))
+```
+Problem 6 - Finishing df
+```{r}
+# Remove all values of na in data
+df %>% na.omit()
+```
+```{r}
+# Finishing
+df <- df %>%
+  mutate(TotalCharges = replace(TotalCharges,
+                                is.na(TotalCharges),
+                                median(TotalCharges, na.rm = T)),
+         MonthlyCharges = replace(MonthlyCharges,
+                                is.na(MonthlyCharges),
+                                median(MonthlyCharges, na.rm = T)),
+         PaymentMethod= replace(PaymentMethod,is.na(PaymentMethod)==TRUE,"Unavailable"),
+         LastTransactionDate = replace(LastTransactionDate,
+                                is.na(LastTransactionDate),
+                                mean(LastTransactionDate, na.rm = T)))
+df
+```
+
