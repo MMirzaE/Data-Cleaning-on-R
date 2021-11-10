@@ -11,9 +11,8 @@ Values:
 - Transformation data.
 
 Data Overview
-Repo Dataset : https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv
-
 <img width="1335" alt="data overview" src="https://user-images.githubusercontent.com/90485680/141128196-c60a1829-f782-47c0-8c22-f7122b1a1a5f.png">
+Repo Dataset : https://raw.githubusercontent.com/dioariadi/dibimbing/main/data_cleansing_raw%20-%20Sheet1.csv
 
 Problems exercise:
 1. TotalCharges and MonthlyCharges columns still in character form
